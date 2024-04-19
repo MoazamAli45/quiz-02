@@ -10,8 +10,10 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigation = useNavigation();
+  const [loading, setLoading] = useState();
 
   const handleSignIn = () => {
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // const user = userCredential.user;
@@ -22,6 +24,9 @@ const SignInScreen = () => {
       })
       .catch((error) => {
         setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -49,7 +54,9 @@ const SignInScreen = () => {
           onPress={handleSignIn}
           style={[styles.btn, { marginTop: error ? 10 : 20 }]}
         >
-          <Text style={styles.btnText}>Sign In</Text>
+          <Text style={styles.btnText}>
+            {loading ? "Processing..." : "Sign In"}
+          </Text>
         </Pressable>
         {/* Sign up navigation */}
         <Pressable

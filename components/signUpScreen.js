@@ -10,12 +10,14 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigation = useNavigation();
+  const [loading, setLoading] = useState();
 
   const handleSignUp = () => {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
+    setLoading(true);
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((auth) => {
@@ -28,6 +30,9 @@ const SignUpScreen = () => {
       })
       .catch((error) => {
         setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -69,7 +74,9 @@ const SignUpScreen = () => {
           secureTextEntry={true}
         />
         <Pressable onPress={handleSignUp} style={styles.btn}>
-          <Text style={styles.btnText}>Sign Up</Text>
+          <Text style={styles.btnText}>
+            {loading ? "Processing..." : "Sign Up"}
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate("signIn")}
