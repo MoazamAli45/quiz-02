@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SignUpScreen from "./components/signUpScreen";
 import SignInScreen from "./components/signInScreen";
 
-import PoseDetection from "./components/poseDetectionScreen";
+import PoseDetection from "./components/objectDetectionScreen";
 import Home from "./components/home";
 
 const Stack = createStackNavigator();
